@@ -27,34 +27,5 @@ services:
             interval: 10s
             timeout: 5s
             retries: 5
-
-    server:
-        container_name: auth-server
-        build:
-            context: .
-            dockerfile: Dockerfile
-        ports:
-            - "${SERVER_PORT}:${SERVER_PORT}"
-        environment:
-            API_NAME: "${API_NAME}"
-            NODE_ENV: "${NODE_ENV}"
-            SERVER_PORT: "${SERVER_PORT}"
-            SERVER_JWT_ACL: "${SERVER_JWT_ACL}"
-            SERVER_JWT_SECRET: "${SERVER_JWT_SECRET}"
-            SERVER_JWT_TIMEOUT: "${SERVER_JWT_TIMEOUT}"
-            DATABASE_HOST: "mysql"
-            DATABASE_DIALECT: "${DATABASE_DIALECT}"
-            DATABASE_USER: "${DATABASE_USER}"
-            DATABASE_PASS: "${DATABASE_PASS}"
-            DATABASE_NAME: "${DATABASE_NAME}"
-            DATABASE_PORT: "${DATABASE_PORT}"
-        depends_on:
-            mysql:
-                condition: service_healthy
-        volumes:
-            - .:/usr/src/app
-        working_dir: /usr/src/app
-        command: yarn run dev
-
 volumes:
     mysql_data:
