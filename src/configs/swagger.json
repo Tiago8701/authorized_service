@@ -1,0 +1,529 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Authorized Service API",
+		"version": "1.0.0",
+		"description": "Documentação dos endpoints principais do serviço de autorização."
+	},
+	"tags": [
+		{ "name": "users", "description": "Operações de usuários" },
+		{ "name": "groups", "description": "Operações de grupos" },
+		{ "name": "permissions", "description": "Operações de permissões" },
+		{ "name": "systems", "description": "Operações de sistemas" }
+	],
+	"paths": {
+		"/groups": {
+			"get": {
+				"tags": ["groups"],
+				"summary": "Listar todos os grupos",
+				"responses": {
+					"200": { "description": "Lista de grupos" }
+				}
+			},
+			"post": {
+				"tags": ["groups"],
+				"summary": "Criar grupo",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": { "type": "string" },
+									"systemId": { "type": "integer" },
+									"permissionIds": {
+										"type": "array",
+										"items": { "type": "integer" }
+									}
+								},
+								"required": ["name", "systemId"]
+							},
+							"example": {
+								"name": "Admin",
+								"systemId": 1,
+								"permissionIds": [1, 2, 3]
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": { "description": "Grupo criado" }
+				}
+			}
+		},
+		"/groups/{id}": {
+			"get": {
+				"tags": ["groups"],
+				"summary": "Detalhar grupo",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"responses": {
+					"200": { "description": "Grupo detalhado" }
+				}
+			},
+			"put": {
+				"tags": ["groups"],
+				"summary": "Atualizar grupo",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": { "type": "string" },
+									"systemId": { "type": "integer" },
+									"permissionIds": {
+										"type": "array",
+										"items": { "type": "integer" }
+									}
+								}
+							},
+							"example": {
+								"name": "Gestores",
+								"systemId": 2,
+								"permissionIds": [2, 4]
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": { "description": "Grupo atualizado" }
+				}
+			},
+			"delete": {
+				"tags": ["groups"],
+				"summary": "Remover grupo",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"responses": {
+					"204": { "description": "Grupo removido" }
+				}
+			}
+		},
+		"/groups/{id}/permissions": {
+			"put": {
+				"tags": ["groups"],
+				"summary": "Atualizar permissões do grupo",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"permissionIds": {
+										"type": "array",
+										"items": { "type": "integer" }
+									}
+								},
+								"required": ["permissionIds"]
+							},
+							"example": { "permissionIds": [1, 3, 5] }
+						}
+					}
+				},
+				"responses": {
+					"200": { "description": "Permissões atualizadas" }
+				}
+			}
+		},
+
+		"/permissions": {
+			"get": {
+				"tags": ["permissions"],
+				"summary": "Listar todas as permissões",
+				"responses": {
+					"200": { "description": "Lista de permissões" }
+				}
+			},
+			"post": {
+				"tags": ["permissions"],
+				"summary": "Criar permissão",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": { "type": "string" },
+									"systemId": { "type": "integer" }
+								},
+								"required": ["name", "systemId"]
+							},
+							"example": { "name": "EDIT_USER", "systemId": 1 }
+						}
+					}
+				},
+				"responses": {
+					"201": { "description": "Permissão criada" }
+				}
+			}
+		},
+		"/permissions/{id}": {
+			"get": {
+				"tags": ["permissions"],
+				"summary": "Detalhar permissão",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"responses": {
+					"200": { "description": "Permissão detalhada" }
+				}
+			},
+			"put": {
+				"tags": ["permissions"],
+				"summary": "Atualizar permissão",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": { "type": "string" },
+									"systemId": { "type": "integer" }
+								}
+							},
+							"example": { "name": "VIEW_REPORTS", "systemId": 2 }
+						}
+					}
+				},
+				"responses": {
+					"200": { "description": "Permissão atualizada" }
+				}
+			},
+			"delete": {
+				"tags": ["permissions"],
+				"summary": "Remover permissão",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"responses": {
+					"204": { "description": "Permissão removida" }
+				}
+			}
+		},
+
+		"/systems": {
+			"get": {
+				"tags": ["systems"],
+				"summary": "Listar todos os sistemas",
+				"responses": {
+					"200": { "description": "Lista de sistemas" }
+				}
+			},
+			"post": {
+				"tags": ["systems"],
+				"summary": "Criar sistema",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": { "type": "string" },
+									"description": { "type": "string" }
+								},
+								"required": ["name"]
+							},
+							"example": {
+								"name": "ERP",
+								"description": "Sistema de gestão empresarial"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": { "description": "Sistema criado" }
+				}
+			}
+		},
+		"/systems/{id}": {
+			"get": {
+				"tags": ["systems"],
+				"summary": "Detalhar sistema",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"responses": {
+					"200": { "description": "Sistema detalhado" }
+				}
+			},
+			"put": {
+				"tags": ["systems"],
+				"summary": "Atualizar sistema",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": { "type": "string" },
+									"description": { "type": "string" }
+								}
+							},
+							"example": {
+								"name": "CRM",
+								"description": "Sistema de relacionamento com cliente"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": { "description": "Sistema atualizado" }
+				}
+			},
+			"delete": {
+				"tags": ["systems"],
+				"summary": "Remover sistema",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"responses": {
+					"204": { "description": "Sistema removido" }
+				}
+			}
+		},
+
+		"/users": {
+			"get": {
+				"tags": ["users"],
+				"summary": "Listar todos os usuários",
+				"responses": {
+					"200": { "description": "Lista de usuários" }
+				}
+			},
+			"post": {
+				"tags": ["users"],
+				"summary": "Criar usuário",
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": { "type": "string" },
+									"email": { "type": "string" },
+									"password": { "type": "string" }
+								},
+								"required": ["name", "email", "password"]
+							},
+							"example": {
+								"name": "João Silva",
+								"email": "joao@empresa.com",
+								"password": "senha123"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": { "description": "Usuário criado" }
+				}
+			}
+		},
+		"/users/{id}": {
+			"get": {
+				"tags": ["users"],
+				"summary": "Detalhar usuário",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"responses": {
+					"200": { "description": "Usuário detalhado" }
+				}
+			},
+			"put": {
+				"tags": ["users"],
+				"summary": "Atualizar usuário",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": { "type": "string" },
+									"email": { "type": "string" }
+								}
+							},
+							"example": {
+								"name": "João S.",
+								"email": "joao.s@empresa.com"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": { "description": "Usuário atualizado" }
+				}
+			},
+			"delete": {
+				"tags": ["users"],
+				"summary": "Remover usuário",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"responses": {
+					"204": { "description": "Usuário removido" }
+				}
+			}
+		},
+		"/users/{id}/groups": {
+			"get": {
+				"tags": ["users"],
+				"summary": "Listar grupos do usuário",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Lista de IDs dos grupos do usuário"
+					}
+				}
+			},
+			"put": {
+				"tags": ["users"],
+				"summary": "Atualizar grupos do usuário",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"groupIds": {
+										"type": "array",
+										"items": { "type": "integer" }
+									}
+								},
+								"required": ["groupIds"]
+							},
+							"example": { "groupIds": [1, 2] }
+						}
+					}
+				},
+				"responses": {
+					"200": { "description": "Grupos atualizados" }
+				}
+			}
+		},
+		"/users/{id}/permissions": {
+			"get": {
+				"tags": ["users"],
+				"summary": "Listar permissões do usuário",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "integer" }
+					}
+				],
+				"responses": {
+					"200": { "description": "Permissões do usuário" }
+				}
+			}
+		}
+	}
+}

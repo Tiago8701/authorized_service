@@ -8,6 +8,7 @@
 		"esModuleInterop": true,
 		"noImplicitAny": false,
 		"experimentalDecorators": true,
+		"resolveJsonModule": true,
 		"allowSyntheticDefaultImports": true,
 		"moduleResolution": "Node",
 		"strictPropertyInitialization": false,

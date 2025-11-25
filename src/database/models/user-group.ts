@@ -4,7 +4,6 @@ import {
 	JoinColumn,
 	ManyToOne,
 	PrimaryGeneratedColumn,
-	Unique,
 	UpdateDateColumn,
 } from "typeorm";
 
@@ -12,7 +11,6 @@ import { Group } from "./group";
 import { User } from "./user";
 
 @Entity("user_groups")
-@Unique(["user", "group"])
 export class UserGroup {
 	@PrimaryGeneratedColumn()
 	id: number;

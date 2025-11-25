@@ -5,15 +5,11 @@ import { terminal } from "terminal-kit";
 
 import ExpressInfrastructure from "./infrastructures/express.infrastructure";
 import MySqlInfrastructure from "./infrastructures/mysql.infrastructure";
-import FeedbackService from "./services/feedback.service";
 import { getLocalIP } from "./utils/network";
 
 dotenv.config();
 
-const infraestructures = [
-    MySqlInfrastructure,
-	 ExpressInfrastructure,
-];
+const infraestructures = [MySqlInfrastructure, ExpressInfrastructure];
 
 (async () => {
 	try {
@@ -55,8 +51,6 @@ const infraestructures = [
 		);
 		terminal("\n");
 		terminal.bold("#".repeat(60) + "\n\n");
-
-		await FeedbackService.send();
 	} catch (error) {
 		terminal.red.bold(
 			`[ERROR] ${error instanceof Error ? error.message : error}\n`,

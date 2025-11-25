@@ -2,11 +2,12 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
+	JoinTable,
+	ManyToMany,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
-	ManyToMany,
-	JoinTable
 } from "typeorm";
+
 import { Group } from "./group";
 
 @Entity("users")
@@ -28,11 +29,11 @@ export class User {
 
 	@UpdateDateColumn({ name: "updated_at" })
 	updated_at: Date;
-	@ManyToMany(() => Group, group => group.users)
+	@ManyToMany(() => Group, (group) => group.users)
 	@JoinTable({
 		name: "user_groups",
 		joinColumn: { name: "user_id", referencedColumnName: "id" },
-		inverseJoinColumn: { name: "group_id", referencedColumnName: "id" }
+		inverseJoinColumn: { name: "group_id", referencedColumnName: "id" },
 	})
 	groups: Group[];
 }

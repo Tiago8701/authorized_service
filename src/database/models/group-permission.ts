@@ -12,7 +12,7 @@ import { Group } from "./group";
 import { Permission } from "./permission";
 
 @Entity("group_permissions")
-@Unique(["group", "permission"])
+@Unique("UQ_group_permissions_group_permission", ["group", "permission"])
 export class GroupPermission {
 	@PrimaryGeneratedColumn()
 	id: number;

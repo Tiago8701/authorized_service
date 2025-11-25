@@ -4,7 +4,9 @@ import cors from "cors";
 import express, { Express } from "express";
 import helmet from "helmet";
 import { useExpressServer } from "routing-controllers";
+import swaggerUi from "swagger-ui-express";
 
+import swaggerDocument from "../configs/swagger.json";
 import { AuthorizationMiddleware } from "../middlewares/auth.middleware";
 import { CurrentUserMiddleware } from "../middlewares/current-user.middleware";
 import rateLimiter from "../middlewares/rate-limiter.middleware";
@@ -31,6 +33,12 @@ const ExpressInfrastructure = {
 					extended: true,
 					parameterLimit: 1000,
 				}),
+			);
+
+			app.use(
+				"/api-docs",
+				swaggerUi.serve,
+				swaggerUi.setup(swaggerDocument),
 			);
 
 			useExpressServer(app, {
