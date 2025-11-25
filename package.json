@@ -1,0 +1,173 @@
+{
+	"name": "template-api",
+	"version": "1.0.0",
+	"main": "src/index.ts",
+	"license": "MIT",
+	"scripts": {
+		"typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+		"dev": "nodemon -r tsconfig-paths/register -q -w  src src/index.ts",
+		"start": "ts-node -r tsconfig-paths/register  src/index.ts",
+		"lint": "eslint . --ext .ts",
+		"prepare": "husky",
+		"commit": "cz",
+		"db:run": "yarn typeorm migration:run -d ./src/configs/orm-config.ts  ",
+		"db:revert": "yarn typeorm migration:revert -d ./src/configs/orm-config.ts",
+		"db:create": "yarn typeorm migration:create -d ./src/configs/orm-config.ts",
+		"db:generate": "yarn typeorm migration:generate -d ./src/configs/orm-config.ts",
+		"db:seed": "ts-node -r tsconfig-paths/register ./src/database/seed.ts",
+		"db:reset": "yarn typeorm migration:revert -d ./src/configs/orm-config.ts && yarn typeorm migration:run -d ./src/configs/orm-config.ts && ts-node -r tsconfig-paths/register ./src/database/seed.ts",
+		"db:clean": "rm -rf ./src/database/migrations/* && yarn typeorm schema:drop -d ./src/configs/orm-config.ts",
+		"docker:init": "docker compose up -d",
+		"docker:down": "docker compose down"
+	},
+	"dependencies": {
+		"axios": "^1.6.2",
+		"bcryptjs": "^3.0.2",
+		"class-transformer": "^0.5.1",
+		"class-validator": "^0.14.1",
+		"compression": "^1.8.0",
+		"cors": "^2.8.5",
+		"csv-parser": "^3.2.0",
+		"date-fns": "^4.1.0",
+		"dotenv": "^16.4.1",
+		"express": "^4.21.1",
+		"express-rate-limit": "^7.5.0",
+		"helmet": "^8.1.0",
+		"jsonwebtoken": "^9.0.2",
+		"multer": "^2.0.2",
+		"mysql": "^2.18.1",
+		"nodemon": "^3.1.7",
+		"pg": "^8.14.1",
+		"pino": "^9.6.0",
+		"pino-http": "^10.4.0",
+		"pino-pretty": "^13.0.0",
+		"reflect-metadata": "^0.2.2",
+		"resend": "^4.2.0",
+		"routing-controllers": "^0.10.4",
+		"string-width": "7.2.0",
+		"terminal-kit": "^3.1.1",
+		"ts-jest": "^29.1.2",
+		"typeorm": "^0.3.22",
+		"typeorm-naming-strategies": "^4.1.0",
+		"uuid": "^11.0.3",
+		"wrap-ansi": "9.0.0",
+		"xlsx": "^0.18.5",
+		"yup": "^1.0.0"
+	},
+	"devDependencies": {
+		"@commitlint/config-conventional": "^19.5.0",
+		"@ianvs/prettier-plugin-sort-imports": "^4.4.0",
+		"@types/babel__generator": "^7.6.8",
+		"@types/cors": "^2.8.17",
+		"@types/dotenv": "^8.2.3",
+		"@types/express": "^5.0.0",
+		"@types/jest": "^29.5.14",
+		"@types/jsonwebtoken": "^9.0.9",
+		"@types/multer": "^2.0.0",
+		"@types/node": "^22.9.0",
+		"@types/terminal-kit": "^2.5.6",
+		"@types/uuid": "^10.0.0",
+		"@typescript-eslint/eslint-plugin": "^8.14.0",
+		"@typescript-eslint/parser": "^8.14.0",
+		"commitizen": "^4.3.1",
+		"eslint": "^8.57.0",
+		"eslint-config-prettier": "^9.0.0",
+		"eslint-plugin-no-comments": "^1.1.10",
+		"eslint-plugin-prettier": "^5.1.3",
+		"eslint-plugin-simple-import-sort": "^12.1.1",
+		"husky": "^9.1.6",
+		"jest": "^29.3.1",
+		"prettier": "^3.3.0",
+		"ts-node": "^10.9.2",
+		"ts-node-dev": "^2.0.0",
+		"tsconfig-paths": "^4.2.0",
+		"typescript": "^5.6.3"
+	},
+	"eslintConfig": {
+		"env": {
+			"browser": true,
+			"es2021": true
+		},
+		"extends": [
+			"eslint:recommended",
+			"plugin:@typescript-eslint/recommended",
+			"plugin:@typescript-eslint/eslint-recommended",
+			"plugin:prettier/recommended"
+		],
+		"overrides": [],
+		"parser": "@typescript-eslint/parser",
+		"parserOptions": {
+			"ecmaVersion": "latest",
+			"sourceType": "module"
+		},
+		"plugins": [
+			"@typescript-eslint",
+			"no-comments"
+		],
+		"rules": {
+			"@typescript-eslint/no-explicit-any": "off",
+			"no-comments/disallowComments": [
+				"error",
+				{
+					"allow": [
+						"TODO",
+						"FIXME",
+						"NOTE",
+						"DEBUG"
+					]
+				}
+			]
+		},
+		"ignorePatterns": [
+			".circleci/",
+			".docker/",
+			".github/",
+			".husky/",
+			".vscode/",
+			"coverage/",
+			"yarn.lock",
+			"build",
+			"node_modules/",
+			"jest.config.ts",
+			"db_dump.sql",
+			"mysql_data"
+		]
+	},
+	"prettier": {
+		"tabWidth": 4,
+		"endOfLine": "auto",
+		"charset": "utf-8",
+		"trimTrailingWhitespace": true,
+		"insertFinalNewline": true,
+		"singleQuote": false,
+		"plugins": [
+			"@ianvs/prettier-plugin-sort-imports"
+		],
+		"importOrder": [
+			"<THIRD_PARTY_MODULES>",
+			"",
+			"",
+			"^(@)(/.*)$",
+			"",
+			"^[.]"
+		],
+		"importOrderParserPlugins": [
+			"typescript",
+			"decorators-legacy"
+		]
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "yarn lint"
+		}
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
+	},
+	"resolutions": {
+		"wrap-ansi": "7.0.0",
+		"string-width": "4.1.0"
+	}
+}

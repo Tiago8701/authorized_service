@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"sourceMap": true,
+		"target": "ES2019",
+		"module": "CommonJS",
+		"strict": true,
+		"lib": ["esnext"],
+		"esModuleInterop": true,
+		"noImplicitAny": false,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"moduleResolution": "Node",
+		"strictPropertyInitialization": false,
+		"incremental": true,
+
+		"emitDecoratorMetadata": true,
+
+		"baseUrl": "./src",
+		"typeRoots": ["./src/@types"],
+		"paths": {
+			"@/*": ["*"]
+		}
+	},
+	"exclude": ["build", "tests", "node_modules"],
+	"include": ["src/**/*.ts"]
+}

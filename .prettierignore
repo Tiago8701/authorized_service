@@ -1,0 +1,21 @@
+# Ignore config folders
+.circleci
+.docker
+.github
+.husky
+.vscode
+
+# Ignore build and coverage
+coverage
+yarn.lock
+build
+
+# Ignore package folder
+node_modules
+
+# Ignore some config files
+jest.config.ts
+
+# Docker
+db_dump.sql
+mysql_data

@@ -1,0 +1,9 @@
+node_modules
+mysql_data
+db_dump.sql
+logs.log
+tsconfig.tsbuildinfo
+.git
+.github
+.husky
+.env
